@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <section class="vh-100" style="background-color: #fff;">
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-lg-12 col-xl-11">
+                    <div class="card text-black" style="border-radius: 25px;">
+                        <div class="card-body p-md-5">
+                            <div class="row justify-content-center">
+                                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                                    <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
+
+                                    <form class="mx-1 mx-md-4">
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <div class="form-outline flex-fill mb-0">
+                                                <input type="text" id="form3Example1c" class="form-control"
+                                                    onchange="validateUsername()" />
+                                                <label class="form-label" for="form3Example1c">Your Username</label>
+                                                <div id="username-error" class="text-danger"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <div class="form-outline flex-fill mb-0">
+                                                <input type="email" id="form3Example3c" class="form-control"
+                                                    onchange="validateEmail()" />
+                                                <label class="form-label" for="form3Example3c">Your Email</label>
+                                                <div id="email-error" class="text-danger"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <div class="form-outline flex-fill mb-0">
+                                                <input type="password" id="form3Example4c" class="form-control"
+                                                    onchange="validatePassword()" />
+                                                <label class="form-label" for="form3Example4c">Password</label>
+                                                <div id="password-error" class="text-danger"></div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex flex-row align-items-center mb-4">
+                                            <div class="form-outline flex-fill mb-0">
+                                                <input type="password" id="form3Example4cd" class="form-control"
+                                                    onchange="validateConfirmPassword()" />
+                                                <label class="form-label" for="form3Example4cd">Repeat your
+                                                    password</label>
+                                                <div id="confirm-password-error" class="text-danger"></div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                                            <button type="button" class="btn btn-primary btn-lg" onclick="validateUsername() && validateEmail() && validatePassword() && validateConfirmPassword()">Register</button>
+                                          </div>
+                                          
+
+                                    </form>
+
+                                </div>
+                                <div
+                                    class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2 justify-content-center">
+
+                                    <img src="./Logo.png" class="img-fluid justify-content-center"
+                                        style="height: 90px; width: 400px;" alt="Sample image">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <script>
+        
+        function validateUsername() {
+            const usernameInput = document.getElementById("form3Example1c");
+            const username = usernameInput.value;
+            const usernameError = document.getElementById("username-error");
+
+            // Regular expression for allowed characters
+            const allowedPattern = /^[a-zA-Z0-9_.]+$/;
+
+            // Check if username is empty
+            if (username.trim() === "") {
+                usernameError.textContent = "Username cannot be empty.";
+                return false; // Indicate error
+            }
+
+            // Check if username matches allowed character pattern (including the English letters check)
+            if (!allowedPattern.test(username)) {
+                usernameError.textContent = "Username can only contain English letters (a-z and A-Z), numbers, underscores (_), and periods (.).";
+                return false; // Indicate error
+            }
+
+            // Check if username matches allowed character pattern
+            if (!allowedPattern.test(username)) {
+                usernameError.textContent = "Username can only contain letters, numbers, underscores (_), and periods (.).";
+                return false; // Indicate error
+            }
+
+
+
+            // Username is valid, clear any previous error messages
+            usernameError.textContent = "";
+            return true; // Indicate success
+        }
+
+        //email validate
+        function validateEmail() {
+            const emailInput = document.getElementById("form3Example3c");
+            const email = emailInput.value;
+            const emailError = document.getElementById("email-error");
+
+            // Regular expression for email format
+            const emailPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+            // Check if email is empty
+            if (email.trim() === "") {
+                emailError.textContent = "Email is required.";
+                return false; // Indicate error
+            }
+
+            // Check if email matches the email format
+            if (!emailPattern.test(email)) {
+                emailError.textContent = "Please enter a valid email address.";
+                return false; // Indicate error
+            }
+
+            // Email is valid, clear any previous error messages
+            emailError.textContent = "";
+            return true; // Indicate success
+        }
+
+
+        //password validate
+        function validatePassword() {
+            const passwordInput = document.getElementById("form3Example4c");
+            const password = passwordInput.value;
+            const passwordError = document.getElementById("password-error");
+
+            // Regular expression for password format
+            const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$])[^\s]{8,16}$/;
+
+            // Check if password is empty
+            if (password.trim() === "") {
+                passwordError.textContent = "Password is required.";
+                return false; // Indicate error
+            }
+
+            // Check if password meets length requirements
+            if (password.length < 8 || password.length > 16) {
+                passwordError.textContent = "Password must be between 8 and 16 characters.";
+                return false; // Indicate error
+            }
+
+            // Check if password matches the format requirements
+            if (!passwordPattern.test(password)) {
+                passwordError.textContent = "Password must contain at least one lowercase letter, one uppercase letter, one number, one of these special characters (@ or $), and no spaces.";
+                return false; // Indicate error
+            }
+
+            // Password is valid, clear any previous error messages
+            passwordError.textContent = "";
+            return true; // Indicate success
+        }
+
+        //password validate matching
+        function validateConfirmPassword() {
+            const passwordInput = document.getElementById("form3Example4c");
+            const password = passwordInput.value;
+            const confirmPasswordInput = document.getElementById("form3Example4cd");
+            const confirmPassword = confirmPasswordInput.value;
+            const confirmPasswordError = document.getElementById("confirm-password-error");
+
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                confirmPasswordError.textContent = "Passwords do not match.";
+                return false; // Indicate error
+            }
+
+            // Password confirmation is valid, clear any previous error messages
+            confirmPasswordError.textContent = "";
+            return true; // Indicate success
+        }
+
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
