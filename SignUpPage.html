@@ -64,9 +64,10 @@
 
 
                                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                            <button type="button" class="btn btn-primary btn-lg" onclick="validateUsername() && validateEmail() && validatePassword() && validateConfirmPassword()">Register</button>
-                                          </div>
-                                          
+                                            <button type="button" class="btn btn-primary btn-lg"
+                                                onclick="validateUsername() && validateEmail() && validatePassword() && validateConfirmPassword()">Register</button>
+                                        </div>
+
 
                                     </form>
 
@@ -89,20 +90,30 @@
 
 
     <script>
-        
+
         function validateUsername() {
             const usernameInput = document.getElementById("form3Example1c");
             const username = usernameInput.value;
             const usernameError = document.getElementById("username-error");
 
             // Regular expression for allowed characters
-            const allowedPattern = /^[a-zA-Z0-9_.]+$/;
+            const allowedPattern = /^[a-zA-Z_.]+$/;
 
-            // Check if username is empty
-            if (username.trim() === "") {
-                usernameError.textContent = "Username cannot be empty.";
+            // Check if username is empty or exceeds the allowed length (15 characters)
+            if (username.trim() === "" || username.length > 15) {
+                if (username.trim() === "") {
+                    usernameError.textContent = "Username cannot be empty.";
+                } else {
+                    usernameError.textContent = "Username can only contain English letters (a-z and A-Z), numbers, underscores (_), and periods (.).";
+                }
                 return false; // Indicate error
             }
+
+            if (username.trim() === username.length <= 15) {
+
+                return false; // Indicate error
+            }
+
 
             // Check if username matches allowed character pattern (including the English letters check)
             if (!allowedPattern.test(username)) {
@@ -139,10 +150,10 @@
             }
 
             // Check if email matches the email format
-            if (!emailPattern.test(email)) {
-                emailError.textContent = "Please enter a valid email address.";
-                return false; // Indicate error
-            }
+            // if (!emailPattern.test(email)) {
+            //    emailError.textContent = "Please enter a valid email address.";
+            //   return false; // Indicate error
+            //}
 
             // Email is valid, clear any previous error messages
             emailError.textContent = "";
@@ -166,7 +177,7 @@
             }
 
             // Check if password meets length requirements
-            if (password.length < 8 || password.length > 16) {
+            if ( password.length == 10) {
                 passwordError.textContent = "Password must be between 8 and 16 characters.";
                 return false; // Indicate error
             }
