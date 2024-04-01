@@ -64,8 +64,8 @@
 
 
                                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                            <button type="button" class="btn btn-primary btn-lg"
-                                                onclick="validateUsername() && validateEmail() && validatePassword() && validateConfirmPassword() && validateAndRegister()">Register</button>
+                                            <button type="button" class="btn btn-primary btn-lg" onclick="submitForm()">Register</button>
+
                                         </div>
 
 
@@ -91,140 +91,67 @@
 
     <script>
 
-        function validateUsername() {
-            const usernameInput = document.getElementById("form3Example1c");
-            const username = usernameInput.value;
-            const usernameError = document.getElementById("username-error");
-
-            // Regular expression for allowed characters
-            const allowedPattern = /^[a-zA-Z_.]+$/;
-
-            // Check if username is empty or exceeds the allowed length (15 characters)
-            if (username.trim() === "" || username.length > 15) {
-                if (username.trim() === "") {
-                    usernameError.textContent = "Username cannot be empty.";
-                } else {
-                    usernameError.textContent = "Username can only contain English letters (a-z and A-Z), numbers, underscores (_), and periods (.).";
-                }
-                return false; // Indicate error
-            }
-
-            if (username.trim() === username.length <= 15) {
-
-                return false; // Indicate error
-            }
-
-
-            // Check if username matches allowed character pattern (including the English letters check)
-            if (!allowedPattern.test(username)) {
-                usernameError.textContent = "Username can only contain English letters (a-z and A-Z), numbers, underscores (_), and periods (.).";
-                return false; // Indicate error
-            }
-
-            // Check if username matches allowed character pattern
-            if (!allowedPattern.test(username)) {
-                usernameError.textContent = "Username can only contain letters, numbers, underscores (_), and periods (.).";
-                return false; // Indicate error
-            }
-
-
-
-            // Username is valid, clear any previous error messages
-            usernameError.textContent = "";
-            return true; // Indicate success
+function validateUsername() {
+        const usernameInput = document.getElementById("form3Example1c");
+        const username = usernameInput.value;
+        const usernameError = document.getElementById("username-error");
+        // Regular expression for allowed characters in username
+        const usernamePattern = /^[a-zA-Z_.]{16}$/;
+        if (!usernamePattern.test(username)) {
+            usernameError.textContent = "Username must be exactly 16 characters long and can only contain English letters, underscores (_), and periods (.)";
+            return false;
         }
-
-        //email validate
-        function validateEmail() {
-            const emailInput = document.getElementById("form3Example3c");
-            const email = emailInput.value;
-            const emailError = document.getElementById("email-error");
-
-            // Regular expression for email format
-            const emailPattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-            // Check if email is empty
-            if (email.trim() === "") {
-                emailError.textContent = "Email is required.";
-                return false; // Indicate error
-            }
-
-            // Check if email matches the email format
-            // if (!emailPattern.test(email)) {
-            //    emailError.textContent = "Please enter a valid email address.";
-            //   return false; // Indicate error
-            //}
-
-            // Email is valid, clear any previous error messages
-            emailError.textContent = "";
-            return true; // Indicate success
+        usernameError.textContent = "";
+        return true;
+    }
+    function validateEmail() {
+        const emailInput = document.getElementById("form3Example3c");
+        const email = emailInput.value;
+        const emailError = document.getElementById("email-error");
+        if (email.trim() === "") {
+            emailError.textContent = "Email is required.";
+            return false;
         }
-
-
-        //password validate
-        function validatePassword() {
-            const passwordInput = document.getElementById("form3Example4c");
-            const password = passwordInput.value;
-            const passwordError = document.getElementById("password-error");
-
-            // Regular expression for password format
-            const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$])[^\s]{8,16}$/;
-
-            // Check if password is empty
-            if (password.trim() === "") {
-                passwordError.textContent = "Password is required.";
-                return false; // Indicate error
-            }
-
-            // Check if password meets length requirements
-            if ( password.length == 10) {
-                passwordError.textContent = "Password must be between 8 and 16 characters.";
-                return false; // Indicate error
-            }
-
-            // Check if password matches the format requirements
-            if (!passwordPattern.test(password)) {
-                passwordError.textContent = "Password must contain at least one lowercase letter, one uppercase letter, one number, one of these special characters (@ or $), and no spaces.";
-                return false; // Indicate error
-            }
-
-            // Password is valid, clear any previous error messages
-            passwordError.textContent = "";
-            return true; // Indicate success
+        emailError.textContent = "";
+        return true;
+    }
+    function validatePassword() {
+        const passwordInput = document.getElementById("form3Example4c");
+        const password = passwordInput.value;
+        const passwordError = document.getElementById("password-error");
+        // Regular expression for password format
+        const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[\d@$])[A-Za-z\d@$]{11}$/;
+        if (!passwordPattern.test(password)) {
+            passwordError.textContent = "Password must be exactly 11 characters, include upper and lower case letters, and can include numbers and the special characters '@' and '$'.";
+            return false;
         }
-
-        //password validate matching
-        function validateConfirmPassword() {
-            const passwordInput = document.getElementById("form3Example4c");
-            const password = passwordInput.value;
-            const confirmPasswordInput = document.getElementById("form3Example4cd");
-            const confirmPassword = confirmPasswordInput.value;
-            const confirmPasswordError = document.getElementById("confirm-password-error");
-
-            // Check if passwords match
-            if (password !== confirmPassword) {
-                confirmPasswordError.textContent = "Passwords do not match.";
-                return false; // Indicate error
-            }
-
-            // Password confirmation is valid, clear any previous error messages
-            confirmPasswordError.textContent = "";
-            return true; // Indicate success
+        passwordError.textContent = "";
+        return true;
+    }
+    function validateConfirmPassword() {
+        const passwordInput = document.getElementById("form3Example4c");
+        const confirmPasswordInput = document.getElementById("form3Example4cd");
+        const confirmPasswordError = document.getElementById("confirm-password-error");
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        if (confirmPassword.trim() === "" || password !== confirmPassword) {
+            confirmPasswordError.textContent = "Passwords must match and cannot be empty.";
+            return false;
         }
-
-        function validateAndRegister() {
+        confirmPasswordError.textContent = "";
+        return true;
+    }
+function submitForm() {
     if (validateUsername() && validateEmail() && validatePassword() && validateConfirmPassword()) {
-        // All validations passed, show success message
-        alert("Registertion success")
-
-        // Optionally prevent default form submission (consider server-side validation)
-        // event.preventDefault();
+        // Implement what happens on successful validation
+        alert("Success: Your Account is created!");
+    } else {
+        // Optional: Implement what happens if validation fails
+        alert("Validation failed. Please check your inputs.");
     }
 }
+</script>
 
-
-
-    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
