@@ -65,7 +65,7 @@
 
                                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                                             <button type="button" class="btn btn-primary btn-lg"
-                                                onclick="validateUsername() && validateEmail() && validatePassword() && validateConfirmPassword()">Register</button>
+                                                onclick="validateUsername() && validateEmail() && validatePassword() && validateConfirmPassword() && validateAndRegister()">Register</button>
                                         </div>
 
 
@@ -211,6 +211,17 @@
             confirmPasswordError.textContent = "";
             return true; // Indicate success
         }
+
+        function validateAndRegister() {
+    if (validateUsername() && validateEmail() && validatePassword() && validateConfirmPassword()) {
+        // All validations passed, show success message
+        alert("success-message")
+
+        // Optionally prevent default form submission (consider server-side validation)
+        // event.preventDefault();
+    }
+}
+
 
 
     </script>
